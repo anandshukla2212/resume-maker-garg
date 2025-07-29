@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>📬 Cover Letter Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to right, #f0f8ff, #e0f7fa);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.3rem;
+      color: #004080;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 18px;
+      display: block;
+      color: #333;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      background-color: #fdfdfd;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #33aaff;
+      background: #f0faff;
+      outline: none;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 14px 24px;
+      font-size: 16px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #005b99;
+    }
+
+    #output {
+      display: none;
+      margin-top: 40px;
+      background: linear-gradient(to right, #e8f4fc, #e3fdf5);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .photo {
+      width: 130px;
+      height: 130px;
+      border-radius: 15px;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 3px solid #007acc;
+    }
+
+    .letter {
+      white-space: pre-line;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .preview-section {
+      background-color: #ffffffdd;
+      padding: 20px;
+      border-radius: 14px;
+      border-left: 6px solid #3399ff;
+      margin-bottom: 20px;
+    }
+
+    .preview-section::before {
+      content: "📬 ";
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📜 Cover Letter Generator</h1>
+
+  <label>👤 Your Name</label>
+  <input type="text" id="yourName" placeholder="e.g. Anand Shukla" />
+
+  <label>📧 Your Email</label>
+  <input type="email" id="yourEmail" placeholder="e.g. anand@email.com" />
+
+  <label>👤 Recipient Name / Company</label>
+  <input type="text" id="recipient" placeholder="e.g. Hiring Manager at ABC Corp" />
+
+  <label>📌 Subject</label>
+  <input type="text" id="subject" placeholder="e.g. Application for Software Developer Role" />
+
+  <label>🖼️ Upload Photo (optional)</label>
+  <input type="file" id="photo" accept="image/*" />
+
+  <label>✍️ Cover Letter Text</label>
+  <textarea id="letterText" rows="10" placeholder="Write your letter here..."></textarea>
+
+  <button onclick="generateLetter()">📨 Generate Cover Letter</button>
+
+  <div id="output">
+    <center><img id="outPhoto" class="photo" /></center>
+    <div class="preview-section">
+      <strong>From:</strong> <span id="outName"></span> (<span id="outEmail"></span>)<br>
+      <strong>To:</strong> <span id="outRecipient"></span><br>
+      <strong>Subject:</strong> <span id="outSubject"></span>
+    </div>
+
+    <div class="letter" id="outLetterText"></div>
+  </div>
+</div>
+
+<script>
+  function generateLetter() {
+    document.getElementById("outName").innerText = document.getElementById("yourName").value;
+    document.getElementById("outEmail").innerText = document.getElementById("yourEmail").value;
+    document.getElementById("outRecipient").innerText = document.getElementById("recipient").value;
+    document.getElementById("outSubject").innerText = document.getElementById("subject").value;
+    document.getElementById("outLetterText").innerText = document.getElementById("letterText").value;
+
+    const photoInput = document.getElementById("photo");
+    if (photoInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById("outPhoto").src = e.target.result;
+      }
+      reader.readAsDataURL(photoInput.files[0]);
+    } else {
+      document.getElementById("outPhoto").src = "";
+    }
+
+    document.getElementById("output").style.display = "block";
+  }
+</script>
+
+</body>
+</html>

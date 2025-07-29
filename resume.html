@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🌟 Resume & Cover Letter Generator 🌟</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to right, #f3f4f6, #dfe9f3);
+    }
+
+    .container {
+      max-width: 950px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      text-align: center;
+      color: #004085;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 0 #ccc;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      background-color: #fdfdfd;
+      transition: 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #3399ff;
+      background-color: #e6f7ff;
+    }
+
+    input[type="file"] {
+      background-color: #fff;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 14px 25px;
+      font-size: 16px;
+      background-color: #007acc;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .photo {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      border: 3px solid #007acc;
+      margin-bottom: 10px;
+    }
+
+    #output {
+      display: none;
+      margin-top: 40px;
+      padding: 30px;
+      background: linear-gradient(to right, #e0f7fa, #f0f8ff);
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 123, 255, 0.2);
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #005f99;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    .preview-section {
+      background-color: #ffffffcc;
+      border-left: 6px solid #3399ff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px #cce7ff;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #004085;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .preview-section::before {
+      content: "🔹 ";
+    }
+
+    .section-title::before {
+      content: "📌 ";
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🎯 Resume & Cover Letter Generator</h1>
+
+  <label>👤 Full Name</label>
+  <input type="text" id="name" />
+
+  <label>📧 Email</label>
+  <input type="email" id="email" />
+
+  <label>🖼️ Upload Photo</label>
+  <input type="file" id="photo" accept="image/*" />
+
+  <label>📝 Professional Summary</label>
+  <textarea id="summary" rows="4" placeholder="Brief summary about your profile, goals, and strengths."></textarea>
+
+  <label>💼 Skills (comma separated)</label>
+  <input type="text" id="skills" />
+
+  <label>💡 Work Experience</label>
+  <textarea id="experience" rows="4" placeholder="Job Title at Company, Years, Responsibilities..."></textarea>
+
+  <label>🎓 Education</label>
+  <textarea id="education" rows="3" placeholder="Degree - Institute (Year)"></textarea>
+
+  <label>🔧 Projects</label>
+  <textarea id="projects" rows="3" placeholder="Project Title, Tools Used, Description..."></textarea>
+
+  <label>📜 Certifications</label>
+  <textarea id="certifications" rows="2" placeholder="Certificate Title, Platform, Year"></textarea>
+
+  <label>🌐 Languages Known</label>
+  <input type="text" id="languages" placeholder="e.g. English, Hindi, French" />
+
+  <label>🏆 Achievements / Awards</label>
+  <textarea id="awards" rows="2" placeholder="Award Name, Year, Description"></textarea>
+
+  <button onclick="generateResume()">🚀 Generate Resume</button>
+
+  <div id="output">
+    <h2>📄 Resume Preview</h2>
+    <center><img id="outPhoto" class="photo" /></center>
+    <div class="preview-section"><strong>Name:</strong> <span id="outName"></span></div>
+    <div class="preview-section"><strong>Email:</strong> <span id="outEmail"></span></div>
+    <div class="preview-section"><span class="section-title">Professional Summary:</span><br><span id="outSummary"></span></div>
+    <div class="preview-section"><span class="section-title">Skills:</span><br><span id="outSkills"></span></div>
+    <div class="preview-section"><span class="section-title">Work Experience:</span><br><span id="outExperience"></span></div>
+    <div class="preview-section"><span class="section-title">Education:</span><br><span id="outEducation"></span></div>
+    <div class="preview-section"><span class="section-title">Projects:</span><br><span id="outProjects"></span></div>
+    <div class="preview-section"><span class="section-title">Certifications:</span><br><span id="outCertifications"></span></div>
+    <div class="preview-section"><span class="section-title">Languages:</span><br><span id="outLanguages"></span></div>
+    <div class="preview-section"><span class="section-title">Achievements / Awards:</span><br><span id="outAwards"></span></div>
+  </div>
+</div>
+
+<script>
+  function generateResume() {
+    document.getElementById("outName").innerText = document.getElementById("name").value;
+    document.getElementById("outEmail").innerText = document.getElementById("email").value;
+    document.getElementById("outSummary").innerText = document.getElementById("summary").value;
+    document.getElementById("outSkills").innerText = document.getElementById("skills").value;
+    document.getElementById("outExperience").innerText = document.getElementById("experience").value;
+    document.getElementById("outEducation").innerText = document.getElementById("education").value;
+    document.getElementById("outProjects").innerText = document.getElementById("projects").value;
+    document.getElementById("outCertifications").innerText = document.getElementById("certifications").value;
+    document.getElementById("outLanguages").innerText = document.getElementById("languages").value;
+    document.getElementById("outAwards").innerText = document.getElementById("awards").value;
+
+    const photoInput = document.getElementById("photo");
+    if (photoInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById("outPhoto").src = e.target.result;
+      }
+      reader.readAsDataURL(photoInput.files[0]);
+    }
+
+    document.getElementById("output").style.display = "block";
+  }
+</script>
+
+</body>
+</html>
