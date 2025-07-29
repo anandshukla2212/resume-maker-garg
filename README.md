@@ -1,1 +1,317 @@
-# resume-maker-garg
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌟 Resume & Cover Letter Tool 🌟</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #74ebd5, #9face6);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://cdn-icons-png.flaticon.com/512/545/545705.png') repeat;
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .headline-banner {
+      width: 100%;
+      background: #b83030;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 8px 0;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+    }
+
+    .headline-banner span {
+      display: inline-block;
+      animation: slide-left 15s linear infinite;
+    }
+
+    @keyframes slide-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .top-bar {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      z-index: 10;
+    }
+
+    .top-bar button {
+      margin-left: 8px;
+      padding: 8px 14px;
+      font-size: 14px;
+      background-color: white;
+      color: #2d5e8f;
+      border: 2px solid #2d5e8f;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .top-bar button:hover {
+      background-color: #2d5e8f;
+      color: white;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 30px 20px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+      margin: 110px auto;
+      position: relative;
+      z-index: 5;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+      color: #2c3e50;
+    }
+
+    p {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    button.main {
+      padding: 12px;
+      font-size: 15px;
+      background-color: #2d5e8f;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button.main:hover {
+      background-color: #1e456a;
+    }
+
+    .img-box {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .img-box img {
+      width: 80px;
+      height: auto;
+      animation: float 2s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .flower-top-left,
+    .flower-bottom-right {
+      position: absolute;
+      width: 60px;
+      z-index: 1;
+      opacity: 0.6;
+    }
+
+    .flower-top-left {
+      top: 10px;
+      left: 10px;
+      transform: rotate(-20deg);
+    }
+
+    .flower-bottom-right {
+      bottom: 10px;
+      right: 10px;
+      transform: rotate(20deg);
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      width: 90%;
+      max-width: 320px;
+      transition: 0.3s ease;
+    }
+
+    .popup.active {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .popup h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      font-size: 18px;
+    }
+
+    .popup input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .popup button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2d5e8f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup button:hover {
+      background-color: #1e456a;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 998;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      .headline-banner {
+        font-size: 13px;
+      }
+
+      .top-bar {
+        top: 85px;
+        right: 10px;
+      }
+
+      .top-bar button {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+
+      .card {
+        padding: 20px 15px;
+        margin-top: 120px;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      .img-box img {
+        width: 60px;
+      }
+
+      .flower-top-left,
+      .flower-bottom-right {
+        width: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="headline-banner">
+    <span>🌍 Welcome World! ✨ Create stunning resumes and cover letters easily! 📝 Made with ❤️ by Anand Shukla</span>
+  </div>
+
+  
+
+  <div class="top-bar">
+    <button onclick="openPopup('login')">🔐 Login</button>
+    <button onclick="openPopup('signup')">🆕 Signup</button>
+  </div>
+
+  <div class="card">
+    <div class="img-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile Icon" />
+    </div>
+
+    <h1>👋 Welcome to <span style="color:#1e456a;">ANAND SHUKLA</span>'s Tool</h1>
+    <p>🚀 Build your professional Resume & Cover Letter in minutes!</p>
+
+    <div class="buttons">
+      <button class="main" onclick="location.href='resume.html'">🧾 Resume Generator</button>
+      <button class="main" onclick="location.href='cover.html'">✉️ Cover Letter Generator</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+  <div class="popup" id="popup">
+    <span class="close-btn" onclick="closePopup()">✖</span>
+    <h2 id="popup-title">Login</h2>
+    <input type="email" placeholder="📧 Email" required>
+    <input type="password" placeholder="🔒 Password" required>
+    <button onclick="alert('✅ Logged in (not functional yet)')">Submit</button>
+  </div>
+
+  <script>
+    function openPopup(type) {
+      document.getElementById('popup-title').innerText = type === 'login' ? '🔐 Login' : '🆕 Signup';
+      document.getElementById('popup').classList.add('active');
+      document.getElementById('overlay').classList.add('active');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('active');
+      document.getElementById('overlay').classList.remove('active');
+    }
+  </script>
+
+</body>
+</html>
